@@ -1,6 +1,6 @@
 # melody-practice
 
-Mostly just playing around with Clojure's Overtone. Unfortunately, this particular project is on hold at
+Mostly just playing around with Overtone (Clojure). Unfortunately, this particular project is on hold at
 the moment. Also, my apologies that the best documentation as to what's going on is in the .odt (at least
 I'm fairly explicit about what's happening there...).
 
