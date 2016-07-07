@@ -1,4 +1,4 @@
-(ns melody-practice.iteration01
+(ns melody-practice.iteration02
   (:use [overtone.live]
         [overtone.inst.sampled-piano])
   (:require [clojure.string :as str]))
@@ -61,7 +61,7 @@
 
 
 ;; MATH STUFF
-(def digits (map read-string (remove #{"."} (map str (str/trim (str/trim-newline (slurp "50k-pi.txt")))))))
+(def digits (map read-string (remove #{"."} (map str (str/trim (str/trim-newline (slurp "500-tau.txt")))))))
 (def mini-digits (take 500 digits))
 (def freq-1 (frequencies digits))
 (def freq-2 (frequencies (concat (partition 2 digits) (partition 2 (rest digits)))))
@@ -207,8 +207,8 @@
           (sampled-piano (+ pitch-adjust (get-scale-val dgt har-scale)) 0.45)
           (when (upcoming-double? list)
             (println-str dgt)
-            (sampled-piano (+ 20 (mod (+ pitch-adjust (get-scale-val dgt har-scale)) 12)) 0.95)
-            (sampled-piano (+ 32 (mod (+ pitch-adjust (get-scale-val dgt har-scale)) 12)) 0.90))
+            (sampled-piano (+ 20 (mod (+ pitch-adjust (get-scale-val dgt har-scale)) 12)) 0.25)
+            (sampled-piano (+ 32 (mod (+ pitch-adjust (get-scale-val dgt har-scale)) 12)) 0.30))
         (apply-by t-next #'play-harmony-segment [t-next base-ms (rest list) har-scale (get-pitch-adjust-for-chords pitch-adjust dgt har-scale 48 20)])))))
 
 (defn play-the-thing
@@ -216,13 +216,13 @@
   (let [coll coll
         base-ms base-ms
         mel-length (get-mel-segment-length (first coll) base-ms)
-        harm-ms (int (/ mel-length (* 5 (count (first coll)))))
+        harm-ms (int (/ mel-length (* 2 (count (first coll)))))
         t-next (+ t mel-length)]
     (when (not (empty? (rest coll)))
       (at t
           (play-harmony-segment t
                                 harm-ms
-                                (take (* 5 (count (first coll))) (cycle (first coll)))
+                                (take (* 2 (count (first coll))) (cycle (first coll)))
                                 har-major-1
                                 har-pitch-adjust)
           (play-melody-segment t
@@ -236,4 +236,6 @@
                                            (get-final-pitch-adjust (first coll) mel-major mel-pitch-adjust 96 48 9)
                                            har-pitch-adjust])))))
 
-(play-the-thing (now) 520 mini-n-sub-by-triples 48 32)
+(play-the-thing (now) 1044 mini-n-sub-by-triples 48 32)
+
+

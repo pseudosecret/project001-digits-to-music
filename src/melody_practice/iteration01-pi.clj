@@ -1,4 +1,4 @@
-(ns melody-practice.iteration02
+(ns melody-practice.iteration01
   (:use [overtone.live]
         [overtone.inst.sampled-piano])
   (:require [clojure.string :as str]))
@@ -61,7 +61,7 @@
 
 
 ;; MATH STUFF
-(def digits (map read-string (remove #{"."} (map str (str/trim (str/trim-newline (slurp "/home/vakr/LightTable/workspace/50k-pi.txt")))))))
+(def digits (map read-string (remove #{"."} (map str (str/trim (str/trim-newline (slurp "50k-pi.txt")))))))
 (def mini-digits (take 500 digits))
 (def freq-1 (frequencies digits))
 (def freq-2 (frequencies (concat (partition 2 digits) (partition 2 (rest digits)))))
@@ -236,5 +236,6 @@
                                            (get-final-pitch-adjust (first coll) mel-major mel-pitch-adjust 96 48 9)
                                            har-pitch-adjust])))))
 
-(play-the-thing (now) 520 mini-n-sub-by-triples 48 32)
+(play-the-thing (now) 522 mini-n-sub-by-triples 48 32)
 
+(stop)
